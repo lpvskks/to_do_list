@@ -88,5 +88,29 @@ namespace To_do_list.Services
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task ReplaceAllIssues(List<AddTextDTO> newIssues)
+        {
+            var allIssues = await _dbContext.Issues.ToListAsync();
+            _dbContext.Issues.RemoveRange(allIssues);
+
+            foreach (var newIssue in newIssues)
+            {
+                if (string.IsNullOrEmpty(newIssue.Text))
+                {
+                    throw new BadHttpRequestException("ЗАДАЧИ С ПУСТЫМ ТЕКСТОМ НЕ ДОБАВЛЯЕМ ОК ДА");
+                }
+
+                Issue issue = new Issue()
+                {
+                    Text = newIssue.Text,
+                    Status = Statuses.NotDone 
+                };
+                _dbContext.Issues.Add(issue);
+            }
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+
     }
 }

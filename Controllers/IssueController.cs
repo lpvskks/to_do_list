@@ -49,5 +49,18 @@ namespace To_do_list.Controllers
             await _service.ChangeStatus(id, status);
             return Ok();
         }
+
+        [HttpPost("replace")]
+        public async Task<IActionResult> ReplaceAllIssues([FromBody] AddIssuesListDTO issuesListDTO)
+        {
+            if (issuesListDTO == null || issuesListDTO.Issues == null || !issuesListDTO.Issues.Any())
+            {
+                return BadRequest("Список задач пустой");
+            }
+
+            await _service.ReplaceAllIssues(issuesListDTO.Issues);
+            return Ok("Список задач был обновлён");
+        }
+
     }
 }
