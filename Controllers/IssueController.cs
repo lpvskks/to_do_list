@@ -51,16 +51,10 @@ namespace To_do_list.Controllers
         }
 
         [HttpPost("replace")]
-        public async Task<IActionResult> ReplaceAllIssues([FromBody] AddIssuesListDTO issuesListDTO)
+        public async Task<IActionResult> ReplaceAllIssues([FromBody] List<AddIssuesListDTO> newIssues)
         {
-            if (issuesListDTO == null || issuesListDTO.Issues == null || !issuesListDTO.Issues.Any())
-            {
-                return BadRequest("Список задач пустой");
-            }
-
-            await _service.ReplaceAllIssues(issuesListDTO.Issues);
-            return Ok("Список задач был обновлён");
+            await _service.ReplaceAllIssues(newIssues);
+            return Ok();
         }
-
     }
 }

@@ -88,7 +88,7 @@ namespace To_do_list.Services
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task ReplaceAllIssues(List<AddTextDTO> newIssues)
+        public async Task ReplaceAllIssues(List<AddIssuesListDTO> newIssues)
         {
             var allIssues = await _dbContext.Issues.ToListAsync();
             _dbContext.Issues.RemoveRange(allIssues);
@@ -103,7 +103,7 @@ namespace To_do_list.Services
                 Issue issue = new Issue()
                 {
                     Text = newIssue.Text,
-                    Status = Statuses.NotDone 
+                    Status = newIssue.Status
                 };
                 _dbContext.Issues.Add(issue);
             }
