@@ -13,7 +13,6 @@ namespace To_do_list.Services.IServices
         public Task<List<IssueDTO>> GetAllIssues();
         public Task ChangeStatus(Guid id, Statuses status);
 
-       // public Task ReplaceAllIssues(List<AddTextDTO> newIssues);
         public Task ReplaceAllIssues(List<AddIssuesListDTO> newIssues);
     }
 

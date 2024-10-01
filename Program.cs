@@ -16,6 +16,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IIssueService, IssueService>();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin() // Позволяет любой домен
+                   .AllowAnyMethod() // Позволяет любые методы (GET, POST и т.д.)
+                   .AllowAnyHeader(); // Позволяет любые заголовки
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,7 +39,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowAllOrigins");
+
 app.UseAuthorization();
+
 
 app.MapControllers();
 

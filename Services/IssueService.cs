@@ -17,7 +17,7 @@ namespace To_do_list.Services
 
         public async Task AddIssue(AddTextDTO textDTO)
         {
-           if (textDTO == null && textDTO.Text == "") 
+           if (textDTO == null || textDTO.Text == "") 
             {
                 throw new BadHttpRequestException("blablabla ТЕКСТ ПУСТОЙ ЗАКАЛИБАЛИ");
             }
@@ -29,6 +29,7 @@ namespace To_do_list.Services
 
             _dbContext.Add(issue);
             await _dbContext.SaveChangesAsync();
+
         }
 
         public async Task DeleteIssue(DeleteIssueDTO deleteIssueDTO)
